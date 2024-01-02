@@ -76,7 +76,6 @@ bizFem is a FREE Business Accounting Software built for Indian small businesses 
 - **Description:**
   Represents customer orders with details such as order date and total amount.
 
-(Continue this pattern for the remaining tables...)
 
 ## Operating Systems
 
