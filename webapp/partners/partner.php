@@ -33,7 +33,7 @@ getRemainingCustomers($conn, $partnerID)
   <!-- Boxicons -->
   <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
   <!-- My CSS -->
-  <link rel="stylesheet" href="/css/partner/style.css" />
+  <link rel="stylesheet" href="../../css/partner/style.css" />
 </head>
 
 <body>
@@ -115,7 +115,7 @@ getRemainingCustomers($conn, $partnerID)
         // echo $_SESSION['data']["mobileNo"]; ?>
       </span>
       <a href="settings.php" class="profile">
-        <img src="/./img/people.png" />
+        <img src="../../img/people.png" />
       </a>
     </nav>
     <!-- NAVBAR -->

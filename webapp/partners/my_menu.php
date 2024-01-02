@@ -21,7 +21,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
   <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
   <script src="https://kit.fontawesome.com/be2e1f99e9.js" crossorigin="anonymous"></script>
   <!-- My CSS -->
-  <link rel="stylesheet" href="/./css/partner/my_menu_style.css" />
+  <link rel="stylesheet" href="../../css/partner/my_menu_style.css" />
 
   <title>Vendor Hub</title>
   <link rel="shortcut icon" type="image/png" href="./img/favicon.ico" />
@@ -109,7 +109,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
         echo $_SESSION['data']["userName"]; ?>
       </span>
       <a class="profile">
-        <img src="/./img/people.png" />
+        <img src="../../img/people.png" />
       </a>
     </nav>
     <!-- NAVBAR -->

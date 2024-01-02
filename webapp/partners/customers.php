@@ -20,7 +20,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
     <!-- Boxicons -->
     <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
     <!-- My CSS -->
-    <link rel="stylesheet" href="/css/partner/style.css" />
+    <link rel="stylesheet" href="../../css/partner/style.css" />
 </head>
 
 <body>
@@ -101,7 +101,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
                 echo $_SESSION['data']["userName"]; ?>
             </span>
             <a href="settings.php" class="profile">
-                <img src="/./img/people.png" />
+                <img src="../../img/people.png" />
             </a>
         </nav>
         <!-- NAVBAR -->
@@ -135,7 +135,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
                             <tbody>
                                 <tr>
                                     <td>
-                                        <img src="/./img/people.png" />
+                                        <img src="../../img/people.png" />
                                     </td>
                                     <td>John Doe</td>
                                     <td>john.doe@example.com</td>
@@ -147,7 +147,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img src="/./img/people.png" />
+                                        <img src="../../img/people.png" />
                                     </td>
                                     <td>Jane Smith</td>
                                     <td>jane.smith@example.com</td>
@@ -159,7 +159,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img src="/./img/people.png" />
+                                        <img src="../../img/people.png" />
                                     </td>
                                     <td>Bob Johnson</td>
                                     <td>bob.johnson@example.com</td>
@@ -172,7 +172,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
 
                                 <tr>
                                     <td>
-                                        <img src="/./img/people.png" />
+                                        <img src="../../img/people.png" />
                                     </td>
                                     <td>Alice Johnson</td>
                                     <td>alice.johnson@example.com</td>
@@ -184,7 +184,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img src="/./img/people.png" />
+                                        <img src="../../img/people.png" />
                                     </td>
                                     <td>Charlie Brown</td>
                                     <td>charlie.brown@example.com</td>
@@ -196,7 +196,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img src="/./img/people.png" />
+                                        <img src="../../img/people.png" />
                                     </td>
                                     <td>Eva Williams</td>
                                     <td>eva.williams@example.com</td>
@@ -208,7 +208,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img src="/./img/people.png" />
+                                        <img src="../../img/people.png" />
                                     </td>
                                     <td>David Miller</td>
                                     <td>david.miller@example.com</td>
@@ -220,7 +220,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img src="/./img/people.png" />
+                                        <img src="../../img/people.png" />
                                     </td>
                                     <td>Grace Taylor</td>
                                     <td>grace.taylor@example.com</td>

@@ -20,7 +20,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
   <!-- Boxicons -->
   <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
   <!-- My CSS -->
-  <link rel="stylesheet" href="/css/partner/style.css" />
+  <link rel="stylesheet" href="../../css/partner/style.css" />
 
   <title>Vendor Hub</title>
   <link rel="shortcut icon" type="image/png" href="./img/favicon.ico" />
@@ -78,7 +78,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
         </a>
       </li>
       <li>
-        <a href="/./logout.php" class="logout">
+        <a href="../../logout.php" class="logout">
           <i class="bx bxs-log-out-circle"></i>
           <span class="text">Logout</span>
         </a>
@@ -110,7 +110,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
         echo $_SESSION['data']["userName"]; ?>
       </span>
       <a href="settings.php" class="profile">
-        <img src="/./img/people.png" />
+        <img src="../../img/people.png" />
       </a>
     </nav>
     <!-- NAVBAR -->
@@ -142,7 +142,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
               <tbody>
                 <tr>
                   <td>
-                    <img src="/./img/people.png" />
+                    <img src="../../img/people.png" />
                     <p>GANESSA</p>
                   </td>
                   <td>Karipap</td>
@@ -152,7 +152,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
                 </tr>
                 <tr>
                   <td>
-                    <img src="/./img/people.png" />
+                    <img src="../../img/people.png" />
                     <p>Irfan</p>
                   </td>
                   <td>Karipap</td>
@@ -162,7 +162,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
                 </tr>
                 <tr>
                   <td>
-                    <img src="/./img/people.png" />
+                    <img src="../../img/people.png" />
                     <p>Tasneem</p>
                   </td>
                   <td>Karipap</td>
@@ -172,7 +172,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
                 </tr>
                 <tr>
                   <td>
-                    <img src="/./img/people.png" />
+                    <img src="../../img/people.png" />
                     <p>Farish</p>
                   </td>
                   <td>Roti</td>
@@ -182,7 +182,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
                 </tr>
                 <tr>
                   <td>
-                    <img src="/./img/people.png" />
+                    <img src="../../img/people.png" />
                     <p>Barack Obama</p>
                   </td>
                   <td>Karipap</td>
