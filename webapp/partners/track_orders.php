@@ -1,5 +1,5 @@
 <?php
-session_start();
+require '../databaseControl/RetreiveStoreDetails.php';
 // Check the user's role
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
 
@@ -9,6 +9,9 @@ if ($role !== 2) {
   exit();
 }
 $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
+$mobileNumber = $_SESSION['data']['mobileNo'];
+$partnerID = getPartnerIDByMobileNumber($conn, $mobileNumber);
+getCustomerPurchaseHistory($conn, $partnerID)
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +25,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
   <!-- My CSS -->
   <link rel="stylesheet" href="../../css/partner/style.css" />
 
-  <title>Vendor Hub</title>
+  <title>Orders</title>
   <link rel="shortcut icon" type="image/png" href="./img/favicon.ico" />
 </head>
 
@@ -124,7 +127,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
         <div class="table-data">
           <div class="order">
             <div class="head">
-              <h3>Recent Orders</h3>
+              <h3>Orders</h3>
               <!-- <i class="bx bx-search"></i>
               <i class="bx bx-filter"></i> -->
             </div>
@@ -132,7 +135,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
               <thead>
                 <tr>
                   <th>User</th>
-                  <th>Menu</th>
+                  <th>Product Name</th>
                   <th>Delivery Date</th>
                   <th>Status</th>
                   <th>Action</th>
@@ -140,56 +143,17 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <img src="../../img/people.png" />
-                    <p>GANESSA</p>
-                  </td>
-                  <td>Karipap</td>
-                  <td>01-10-2018</td>
-                  <td><span class="status completed">Completed</span></td>
-                  <td><Button class="button-1" role="button">Update</Button></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="../../img/people.png" />
-                    <p>Irfan</p>
-                  </td>
-                  <td>Karipap</td>
-                  <td>01-10-2018</td>
-                  <td><span class="status pending">Pending</span></td>
-                  <td><Button class="button-1" role="button">Update</Button></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="../../img/people.png" />
-                    <p>Tasneem</p>
-                  </td>
-                  <td>Karipap</td>
-                  <td>01-10-2018</td>
-                  <td><span class="status pending">Pending</span></td>
-                  <td><Button class="button-1" role="button">Update</Button></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="../../img/people.png" />
-                    <p>Farish</p>
-                  </td>
-                  <td>Roti</td>
-                  <td>01-10-2018</td>
-                  <td><span class="status pending">Pending</span></td>
-                  <td><Button class="button-1" role="button">Update</Button></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="../../img/people.png" />
-                    <p>Barack Obama</p>
-                  </td>
-                  <td>Karipap</td>
-                  <td>01-10-2018</td>
-                  <td><span class="status completed">Completed</span></td>
-                  <td><Button class="button-1" role="button">Update</Button></td>
-                </tr>
+                      <?php
+                      foreach ($_SESSION['customerPurchaseHistory'] as $purchase) {
+                          echo '<tr>';
+                          echo '<td>' . $purchase['CustomerName'] . '</td>';
+                          echo '<td>' . $purchase['ProductName'] . '</td>';
+                          echo '<td>' . $purchase['LastPurchaseDate'] . '</td>';
+                          echo '<td>' . $purchase['PaymentStatus'] . '</td>';
+                          echo '<td> Later </td>';
+                          echo '</tr>';
+                      }
+                      ?>
               </tbody>
             </table>
           </div>

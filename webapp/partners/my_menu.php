@@ -1,5 +1,5 @@
 <?php
-session_start();
+require '../databaseControl/RetreiveStoreDetails.php';
 // Check the user's role
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
 
@@ -9,6 +9,9 @@ if ($role !== 2) {
   exit();
 }
 $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
+$mobileNumber = $_SESSION['data']['mobileNo'];
+$partnerID = getPartnerIDByMobileNumber($conn, $mobileNumber);
+getProductInformationByPartnerID($conn, $partnerID);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -128,7 +131,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
             <div class="order">
               <div class="head">
               </div>
-              <table>
+              <!-- <table>
                 <thead>
                   <tr>
                     <th>Product name</th>
@@ -223,7 +226,8 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
                     <td><button>Edit</button> <button>Delete</button></td>
                   </tr>
                 </tbody>
-              </table>
+              </table> -->
+              <?php echo var_dump($_SESSION['productInformation']); ?>
             </div>
           </div>
         </div>

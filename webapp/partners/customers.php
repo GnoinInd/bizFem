@@ -1,5 +1,5 @@
 <?php
-session_start();
+require '../databaseControl/RetreiveStoreDetails.php';
 // Check the user's role
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
 
@@ -9,6 +9,9 @@ if ($role !== 2) {
   exit();
 }
 $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
+$mobileNumber = $_SESSION['data']['mobileNo'];
+$partnerID = getPartnerIDByMobileNumber($conn, $mobileNumber);
+getCustomersByPartnerID($conn, $partnerID);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -123,116 +126,30 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
                             <thead>
                                 <tr>
                                     <th></th>
+                                    <th>User ID</th>
                                     <th>User Name</th>
                                     <th>Email</th>
                                     <th>Mobile</th>
                                     <th>Address</th>
-                                    <th>Product Purchased</th>
-                                    <th>Delivery Date</th>
-                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                            <?php
+                                // Loop through the customer data and print each row in the table
+                                foreach ($_SESSION['customersData'] as $customer) {
+                                    echo '<tr>';?>
                                     <td>
                                         <img src="../../img/people.png" />
-                                    </td>
-                                    <td>John Doe</td>
-                                    <td>john.doe@example.com</td>
-                                    <td>1234567890</td>
-                                    <td>123 Main St, City</td>
-                                    <td>Product A</td>
-                                    <td>2023-01-15</td>
-                                    <td>Delivered</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="../../img/people.png" />
-                                    </td>
-                                    <td>Jane Smith</td>
-                                    <td>jane.smith@example.com</td>
-                                    <td>9876543210</td>
-                                    <td>456 Oak St, Town</td>
-                                    <td>Product B</td>
-                                    <td>2023-02-20</td>
-                                    <td>Shipped</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="../../img/people.png" />
-                                    </td>
-                                    <td>Bob Johnson</td>
-                                    <td>bob.johnson@example.com</td>
-                                    <td>5555555555</td>
-                                    <td>789 Pine St, Village</td>
-                                    <td>Product C</td>
-                                    <td>2023-03-05</td>
-                                    <td>Processing</td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <img src="../../img/people.png" />
-                                    </td>
-                                    <td>Alice Johnson</td>
-                                    <td>alice.johnson@example.com</td>
-                                    <td>1111111111</td>
-                                    <td>321 Maple St, Suburb</td>
-                                    <td>Product D</td>
-                                    <td>2023-04-10</td>
-                                    <td>Delivered</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="../../img/people.png" />
-                                    </td>
-                                    <td>Charlie Brown</td>
-                                    <td>charlie.brown@example.com</td>
-                                    <td>9999999999</td>
-                                    <td>654 Elm St, District</td>
-                                    <td>Product E</td>
-                                    <td>2023-05-25</td>
-                                    <td>Shipped</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="../../img/people.png" />
-                                    </td>
-                                    <td>Eva Williams</td>
-                                    <td>eva.williams@example.com</td>
-                                    <td>7777777777</td>
-                                    <td>987 Oak St, County</td>
-                                    <td>Product F</td>
-                                    <td>2023-06-08</td>
-                                    <td>Processing</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="../../img/people.png" />
-                                    </td>
-                                    <td>David Miller</td>
-                                    <td>david.miller@example.com</td>
-                                    <td>8888888888</td>
-                                    <td>456 Birch St, Hamlet</td>
-                                    <td>Product G</td>
-                                    <td>2023-07-15</td>
-                                    <td>Shipped</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="../../img/people.png" />
-                                    </td>
-                                    <td>Grace Taylor</td>
-                                    <td>grace.taylor@example.com</td>
-                                    <td>4444444444</td>
-                                    <td>789 Pine St, Village</td>
-                                    <td>Product H</td>
-                                    <td>2023-08-22</td>
-                                    <td>Processing</td>
-                                </tr>
-
+                                    </td><?php
+                                    echo '<td>' . $customer['userID'] . '</td>';
+                                    echo '<td>' . $customer['userName'] . '</td>';
+                                    echo '<td>' . $customer['userEmail'] . '</td>';
+                                    echo '<td>' . $customer['userMobileNo'] . '</td>';
+                                    echo '<td>' . $customer['userAddress'] . '</td>';
+                                    echo '</tr>';
+                                }
+                                ?>
                             </tbody>
-
                         </table>
                     </div>
                 </div>

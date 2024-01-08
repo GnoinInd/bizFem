@@ -1,6 +1,6 @@
 <?php
 // session_start();
-require_once '../databaseControl/RetreiveStoreDetails.php';
+require '../databaseControl/RetreiveStoreDetails.php';
 // Check the user's role
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
 
