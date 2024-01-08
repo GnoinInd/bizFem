@@ -1,0 +1,256 @@
+<!-- <?php
+session_start();
+error_reporting(0);
+//  Check if the user is logged in
+if (!isset($_SESSION['data'])) {
+  //  Redirect to the login page
+  header("Location: ../../index.php");
+  exit();
+}
+
+//  Access user data from the session
+$user = $_SESSION['data'];
+$mobile = $_SESSION['mobile'];
+//  Check the user's role
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
+//  Redirect if the user's role is not "Admin"
+if ($role !== 1) {
+  header("Location: ../login.php");
+  exit();
+}
+echo $_SESSION['data']["userName"];
+?> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- My css -->
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <link rel="stylesheet" href="../../assets/css/test.css" />
+  </head>
+  <body>
+    <section class="header-content">
+      <header>
+        <img src="../../assets/img/logo.png" alt="" srcset="" />
+      </header>
+    </section>
+    <main class="body-content">
+      <div class="sidebar">
+        <section class="navigation-section">
+          <div class="menu">
+            <ul>
+              <li class="item" id="">
+                <a class="btn" href="https://www.google.com/"
+                  ><img src="../../assets/img/Group.png" alt="" />Product</a
+                >
+              </li>
+              <li class="item" id="">
+                <a class="btn" href="https://www.google.com/"
+                  ><img src="../../assets/img/service.png" alt="" />Services</a
+                >
+              </li>
+              <li class="item" id="">
+                <a class="btn" href="https://www.google.com/"
+                  ><img src="../../assets/img/plan.png" alt="" />Plan</a
+                >
+              </li>
+              <li class="item" id="">
+                <a class="btn" href="https://www.google.com/"
+                  ><img src="../../assets/img/Group.png" alt="" />Partner</a
+                >
+              </li>
+              <li class="item" id="">
+                <a class="btn" href="https://www.google.com/"
+                  ><img src="../../assets/img/Group.png" alt="" />Customer</a
+                >
+              </li>
+              <li class="item" id="">
+                <a class="btn" href="https://www.google.com/"
+                  ><img src="../../assets/img/Group.png" alt="" />User</a
+                >
+              </li>
+              <li class="item" id="">
+                <a class="btn" href="https://www.google.com/"
+                  ><img src="../../assets/img/Group.png" alt="" />Profile</a
+                >
+              </li>
+
+              <li class="item current_page_item" id="mn1">
+                <a class="btn" href="#mn1">
+                  <img src="../../assets/img/Group.png" alt="" />
+                  Setting
+                  <img
+                    class="downArrow"
+                    src="../../assets/img/downArrow.png"
+                    alt=""
+                  />
+                </a>
+                <div class="submenu">
+                  <a href="#"
+                    ><img src="../../assets/img/Group.png" alt="" />Kullan
+                    Ekle</a
+                  >
+                  <a href="#"
+                    ><img src="../../assets/img/Group.png" alt="" />Kullan
+                    Sil</a
+                  >
+                </div>
+              </li>
+              <li class="item" id="mn2">
+                <a class="btn" href="#mn2">
+                  <img src="../../assets/img/Group.png" alt="" />
+                  Nested Setting
+                  <img
+                    class="downArrow"
+                    src="../../assets/img/downArrow.png"
+                    alt=""
+                  />
+                </a>
+                <div class="submenu">
+                  <a class="btn" href="#"
+                    ><img src="../../assets/img/Group.png" alt="" />Nested Item
+                    1</a
+                  >
+                  <a class="btn" href="#"
+                    ><img src="../../assets/img/Group.png" alt="" />Nested Item
+                    2</a
+                  >
+                  <div class="item" id="mn2-1">
+                    <a class="btn" href="#mn2-1">
+                      <img src="../../assets/img/Group.png" alt="" />
+                      Nested Submenu
+                      <img
+                        class="downArrow"
+                        src="../../assets/img/downArrow.png"
+                        alt=""
+                      />
+                    </a>
+                    <div class="submenu">
+                      <a class="btn" href="#"
+                        ><img src="../../assets/img/Group.png" alt="" />Submenu
+                        Item 1</a
+                      >
+                      <a class="btn" href="#"
+                        ><img src="../../assets/img/Group.png" alt="" />Submenu
+                        Item 2</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <!-- wait -->
+              <li class="item" id="">
+                <a class="btn" href="https://www.google.com/"
+                  ><img src="../../assets/img/Group.png" alt="" />GST</a
+                >
+              </li>
+              <li class="item" id="">
+                <a class="btn" href="https://www.google.com/"
+                  ><img src="../../assets/img/Group.png" alt="" />Payment</a
+                >
+              </li>
+              <li class="item" id="">
+                <a class="btn" href="https://www.google.com/"
+                  ><img src="../../assets/img/Group.png" alt="" />Help &
+                  Support</a
+                >
+              </li>
+            </ul>
+          </div>
+          <!-- /sidebar  -->
+        </section>
+      </div>
+      <div class="content">
+        <section class="content-body addProduct">
+          <div class="addProduct-head">
+            <div class="Text-heading">
+              <h1>Add Product</h1>
+            </div>
+            <a class="backArrow" href="">
+              <img src="../../assets/img/arrow.png" alt="" />
+            </a>
+          </div>
+          <div class="input-Content">
+            <div class="input-group flex">
+              <div class="center input-field">
+                <div class="inputGroup">
+                  <input
+                    type="text"
+                    id="Productname"
+                    required=""
+                    autocomplete="off"
+                  />
+                  <label for="Productname">Product Name</label>
+                </div>
+              </div>
+              <div class="center input-field">
+                <div class="inputGroup">
+                  <input
+                    type="text"
+                    id="AddModule"
+                    required=""
+                    autocomplete="off"
+                  />
+                  <label for="AddModule">Add Module</label>
+                </div>
+              </div>
+            </div>
+            <div class="button-group flex">
+              <div class="center save-button">
+                <button class="btn btn-outline">save</button>
+              </div>
+              <div class="center saveNdNext-button">
+                <button class="btn btn-primary">save & next</button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="content-body ProductName">
+          <div class="Text-align">
+            <h1>Product Name : BizFem</h1>
+          </div>
+        </section>
+        <section class="content-body Product-table">
+          <table>
+            <tr>
+              <th>Module Name</th>
+              <th>Service Name</th>
+              <th>Action</th>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>
+                <div class="full-container center">
+                  <button class="btn-edit center">
+                    <img src="../../assets/img/edit.png" alt="" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </table>
+        </section>
+      </div>
+    </main>
+  </body>
+  <script src="../../assets/js/admin.js"></script>
+</html>
