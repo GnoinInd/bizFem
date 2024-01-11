@@ -24,6 +24,7 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
 
     <title>Vendor Hub</title>
     <link rel="shortcut icon" type="image/png" href="./img/favicon.ico" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 
 <body>
@@ -91,16 +92,6 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
     <section id="content">
         <!-- NAVBAR -->
         <nav>
-            <i class="bx bx-menu"></i>
-            <!-- <a href="#" class="nav-link">Categories</a> -->
-            <form action="#">
-                <div class="form-input">
-                    <input type="search" placeholder="Search..." />
-                    <button type="submit" class="search-btn">
-                        <i class="bx bx-search"></i>
-                    </button>
-                </div>
-            </form>
             <a href="#" class="notification">
                 <i class="bx bxs-bell"></i>
                 <span class="num">1</span>
@@ -119,78 +110,100 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Add</h1>
-
+                    <h1>Add Customer</h1>
                 </div>
             </div>
-
 
             <div class="table-data">
                 <div class="order">
                     <div class="head">
                         <h3>Add Customer Details</h3>
-                        <!-- <i class="bx bx-search"></i>
-              <i class="bx bx-filter"></i> -->
                     </div>
-                    <form action="*">
+                    <form action="process_customer.php" method="post">
                         <table>
                             <tbody>
                                 <tr>
                                     <td>
                                         <p>Name :</p>
                                     </td>
-                                    <td><input type="text" id="menuname" name="menuname"></td>
+                                    <td><input type="text" id="name" name="name"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>Mobile No :</p>
+                                    </td>
+                                    <td><input type="text" id="mobileNo" name="mobileNo"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>Email :</p>
+                                    </td>
+                                    <td><input type="email" id="email" name="email"></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <p>Address :</p>
                                     </td>
-                                    <td><input type="text" id="menuname" name="menuname"></td>
+                                    <td><input type="text" id="address" name="address"></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <p>Products :</p>
                                     </td>
                                     <td>
-                                        <select id="menu_type" name="menu_type">
-                                            <option value="malay">Product A</option>
-                                            <option value="chinese">Product B</option>
-                                            <option value="indian">Product C</option>
-                                            <option value="indian">Product D</option>
-                                            <option value="indian">Product E</option>
-                                            <option value="indian">Product F</option>
-                                        </select>
+                                        <!-- Dynamic product options will be loaded here by dropdown-->
+                                        <select id="productList" name="product"></select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <p>Price per Product</p>
                                     </td>
-                                    <td><input type="text" id="price" name="price"></td>
+                                    <td>
+                                        <!-- Display product price here -->
+                                        <input type="text" id="price" name="price" readonly>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <p>Product Quantity :</p>
                                     </td>
-                                    <td><input type="int" id="min_pax" name="min_pax"></td>
-                                </tr>
-                                <!-- <tr>
                                     <td>
-                                        <p>Food Description :</p>
+                                        <!-- Input for product quantity -->
+                                        <input type="number" id="productQuantity" name="productQuantity" min="1" oninput="calculateTotal()">
                                     </td>
-                                    <td><input type="text" id="menuname" name="menuname"></td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img src="../../img/people.png" />
-                                        <p>Menu image :</p>
+                                        <p>Total Price :</p>
                                     </td>
-                                    <td><input type="file" id="../../img" name="../../img" accept="image/*"></td>
-                                </tr> -->
+                                    <td>
+                                        <!-- Display total price here -->
+                                        <input type="text" id="totalPrice" name="totalPrice" readonly>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <!-- Dynamically calculate offer -->
+                                    <td>
+                                        <p>Offer :</p>
+                                    </td>
+                                    <td>
+                                        <!-- Display calculated offer here -->
+                                        <input type="text" id="offer" name="offer" readonly>%
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td>
+                                        <p>Price To Pay :</p>
                                     </td>
-                                    <td> <button type="submit">Add</button></td>
+                                    <td>
+                                        <!-- Display calculated price to pay here -->
+                                        <input type="text" id="priceToPay" name="priceToPay" readonly>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><button type="submit">Add</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -209,6 +222,93 @@ $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
     <!-- End of footer -->
 
     <script src="/css/partner/script.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Fetch product data when the page loads
+            $.ajax({
+                url: '../databaseControl/get_products.php',
+                method: 'GET',
+                success: function (products) {
+                    $('#productList').html(products);
+                    updatePrice(); // Trigger price update on page load
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+
+            // Update price and total price when product selection changes
+            $('#productList').on('change', function () {
+                updatePrice();
+            });
+
+            // Update total price when quantity changes
+            $('#productQuantity').on('input', function () {
+                calculateTotal();
+            });
+
+            // Function to update price based on selected product
+            function updatePrice() {
+                const selectedProduct = $('#productList').val();
+                $.ajax({
+                    url: '../databaseControl/get_price.php',
+                    method: 'POST',
+                    data: { product: selectedProduct },
+                    success: function (price) {
+                        $('#price').val(price);
+                        updateOffer(); // Trigger offer update when price changes
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+            // Function to calculate total price, offer, and price to pay
+            function calculateTotal() {
+                const price = parseFloat($('#price').val()) || 0;
+                const quantity = parseInt($('#productQuantity').val()) || 0;
+                const totalPrice = price * quantity;
+
+                // Display total price
+                $('#totalPrice').val(totalPrice.toFixed(2));
+
+                updateOffer(); // Trigger offer update when quantity changes
+            }
+
+            // Function to update offer based on selected product and quantity
+            function updateOffer() {
+                const selectedProduct = $('#productList').val();
+                const quantity = parseInt($('#productQuantity').val()) || 0;
+
+                $.ajax({
+                    url: '../databaseControl/get_offer.php',
+                    method: 'POST',
+                    data: { product: selectedProduct, quantity: quantity },
+                    success: function (offer) {
+                        $('#offer').val(offer);
+                        updatePriceToPay(); // Trigger price to pay update when offer changes
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+            // Function to calculate and display price to pay
+            function updatePriceToPay() {
+                const totalPrice = parseFloat($('#totalPrice').val()) || 0;
+                const offer = parseFloat($('#offer').val()) || 0;
+                const priceToPay = totalPrice - (totalPrice * (offer/100));
+
+                // Display price to pay
+                $('#priceToPay').val(priceToPay.toFixed(2));
+            }
+
+            // Trigger calculation on page load
+            calculateTotal();
+        });
+    </script>
 </body>
 
 </html>

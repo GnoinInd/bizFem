@@ -11,7 +11,7 @@ if ($role !== 2) {
 $data = isset($_SESSION['data']) ? $_SESSION['data'] : '';
 $mobileNumber = $_SESSION['data']['mobileNo'];
 $partnerID = getPartnerIDByMobileNumber($conn, $mobileNumber);
-getProductInformationByPartnerID($conn, $partnerID);
+getProductInformationByPartnerID($conn,$partnerID)
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -131,103 +131,40 @@ getProductInformationByPartnerID($conn, $partnerID);
             <div class="order">
               <div class="head">
               </div>
-              <!-- <table>
-                <thead>
-                  <tr>
-                    <th>Product name</th>
-                    <th>Purchasing date</th>
-                    <th>Selling date</th>
-                    <th>Expire date</th>
-                    <th>Total customer</th>
-                    <th>Rest customer</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Product A</td>
-                    <td>2023-01-15</td>
-                    <td>2023-02-20</td>
-                    <td>2023-07-15</td>
-                    <td>150</td>
-                    <td>50</td>
-                    <td>Active</td>
-                    <td><button>Edit</button> <button>Delete</button></td>
-                  </tr>
-                  <tr>
-                    <td>Product B</td>
-                    <td>2023-02-20</td>
-                    <td>2023-03-25</td>
-                    <td>2023-08-22</td>
-                    <td>120</td>
-                    <td>30</td>
-                    <td>Inactive</td>
-                    <td><button>Edit</button> <button>Delete</button></td>
-                  </tr>
-                  <tr>
-                    <td>Product C</td>
-                    <td>2023-03-05</td>
-                    <td>2023-04-10</td>
-                    <td>2023-09-30</td>
-                    <td>200</td>
-                    <td>80</td>
-                    <td>Active</td>
-                    <td><button>Edit</button> <button>Delete</button></td>
-                  </tr>
-                  <tr>
-                    <td>Product D</td>
-                    <td>2023-04-10</td>
-                    <td>2023-05-15</td>
-                    <td>2023-10-12</td>
-                    <td>180</td>
-                    <td>60</td>
-                    <td>Inactive</td>
-                    <td><button>Edit</button> <button>Delete</button></td>
-                  </tr>
-                  <tr>
-                    <td>Product E</td>
-                    <td>2023-05-25</td>
-                    <td>2023-06-30</td>
-                    <td>2023-11-01</td>
-                    <td>220</td>
-                    <td>90</td>
-                    <td>Active</td>
-                    <td><button>Edit</button> <button>Delete</button></td>
-                  </tr>
-                  <tr>
-                    <td>Product F</td>
-                    <td>2023-06-08</td>
-                    <td>2023-07-15</td>
-                    <td>2023-12-15</td>
-                    <td>250</td>
-                    <td>110</td>
-                    <td>Active</td>
-                    <td><button>Edit</button> <button>Delete</button></td>
-                  </tr>
-                  <tr>
-                    <td>Product G</td>
-                    <td>2023-07-15</td>
-                    <td>2023-08-20</td>
-                    <td>2024-01-25</td>
-                    <td>200</td>
-                    <td>40</td>
-                    <td>Inactive</td>
-                    <td><button>Edit</button> <button>Delete</button></td>
-                  </tr>
-                  <tr>
-                    <td>Product H</td>
-                    <td>2023-08-22</td>
-                    <td>2023-09-30</td>
-                    <td>2024-02-28</td>
-                    <td>150</td>
-                    <td>70</td>
-                    <td>Active</td>
-                    <td><button>Edit</button> <button>Delete</button></td>
-                  </tr>
-                </tbody>
-              </table> -->
-              <?php echo var_dump($_SESSION['productInformation']); ?>
+              <table>
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Purchase Date</th>
+                            <th>Selling Date</th>
+                            <th>Expire Date</th>
+                            <th>Total Customers</th>
+                            <th>Rest Customers</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php
+                    // Loop through the product information data and print each row in the table
+                    foreach ($_SESSION['productInformation'] as $product) {
+                        echo '<tr>';
+                        echo '<td>' . $product['productName'] . '</td>';
+                        echo '<td>' . $product['purchaseDate'] . '</td>';
+                        echo '<td>' . $product['sellingDate'] . '</td>';
+                        echo '<td>' . $product['expireDate'] . '</td>';
+                        echo '<td>' . $product['totalCustomers'] . '</td>';
+                        echo '<td>' . $product['restCustomers'] . '</td>';
+                        echo '<td>' . $product['status'] . '</td>';
+                        echo '</tr>';
+                    }
+                   ?>
+
+                    </tbody>
+                </table>
+              <?php 
+              // echo var_dump($_SESSION['productInformation']); 
+              ?>
             </div>
           </div>
         </div>

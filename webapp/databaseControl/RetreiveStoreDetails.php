@@ -286,30 +286,39 @@ function getCustomerPurchaseHistory($conn, $partnerID)
 }
 
 function getProductInformationByPartnerID($conn, $partnerID) {
-    // Sanitize the input
-    $partnerID = $conn->real_escape_string($partnerID);
-
-    // Your SQL query
+    // Your SQL query with the current partner ID as a parameter
     $sql = "
         SELECT
-            p.productName AS 'Product name',
-            oi.orderDate AS 'Purchasing date',
-            o.orderDate AS 'Selling date',
-            p.expiryDate AS 'Expire date',
-            oi.Quantity AS 'Total customer',
-            p.productQuantity - oi.Quantity AS 'Rest customer',
-            p.status AS 'Status',
-            'Action' AS 'Action'
+            p.productName,
+            MAX(t.transactionDate) AS purchaseDate,
+            MAX(t2.transactionDate) AS sellingDate,
+            MAX(ti.expireDate) AS expireDate,
+            COUNT(DISTINCT pu.userID) AS totalCustomers,
+            COUNT(DISTINCT CASE WHEN t2.transactionDate IS NULL AND MONTH(CURDATE()) = MONTH(t.transactionDate) THEN pu.userID END) AS restCustomers,
+            MAX(p.status) AS status
         FROM
-            orderitems oi
-            JOIN products p ON oi.productID = p.productID
-            JOIN orders o ON oi.orderID = o.orderID
+            products p
+        LEFT JOIN
+            transactionitem ti ON p.productID = ti.productID
+        LEFT JOIN
+            transaction t ON ti.transactionID = t.transactionID AND t.partnerID = ?
+        LEFT JOIN
+            transaction t2 ON ti.transactionID = t2.transactionID AND t2.userID IS NOT NULL
+        LEFT JOIN
+            partner_user pu ON p.partnerID = pu.partnerID
         WHERE
-            p.partnerID = $partnerID;
+            p.partnerID = ?
+        GROUP BY
+            p.productName;
     ";
 
-    // Execute the query
-    $result = $conn->query($sql);
+    // Use prepared statement
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ii", $partnerID, $partnerID);
+    $stmt->execute();
+
+    // Get the result
+    $result = $stmt->get_result();
 
     // Check if the query was successful
     if ($result) {
@@ -322,14 +331,20 @@ function getProductInformationByPartnerID($conn, $partnerID) {
         // Store the result in a session variable
         $_SESSION['productInformation'] = $productInformation;
 
+        // Close the statement
+        $stmt->close();
+
         return $productInformation;
     } else {
         // If the query fails, you can handle the error here
         echo "Error executing query: " . $conn->error;
+
+        // Close the statement
+        $stmt->close();
+
         return false;
     }
 }
-
 
 
 
